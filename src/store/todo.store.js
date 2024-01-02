@@ -11,6 +11,8 @@ const state = {
         new Todo('Piedra del alma'),
         new Todo('Piedra del tiempo'),
         new Todo('Piedra del infinito'),
+        new Todo('Piedra de la realidad'),
+        new Todo('Piedra del campo'),
     ],
     filter: Filters.All
 }
@@ -29,9 +31,9 @@ const getTodos = ( filter = Filters.All ) => {
         case Filters.All:
             return [...state.todos];
         case Filters.Completed:
-            return state.todos.filter( todo = todo.done );
+            return state.todos.filter( todo => todo.done );
         case Filters.Pending:
-            return state.todos.filter( todo = !todo.done );
+            return state.todos.filter( todo => !todo.done );
         default: 
             throw new Error(`Option ${ filter } is not valid.`);
 
@@ -53,7 +55,16 @@ const addTodo = ( description ) => {
  * @param {String} todoId 
  */
 const toggleTodo = ( todoId ) => {
-    throw new Error('Not implemented');
+    if ( !todoId ) throw new Error('TodoId is required.');
+
+    state.todos.map( (todo) => {
+
+        if ( todo.id === todoId) {
+            todo.done = !todo.done;
+        }
+
+        return todo;
+    } );
 }
 
 /**
